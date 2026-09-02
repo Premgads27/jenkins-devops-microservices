@@ -28,25 +28,51 @@ pipeline {
 
         stage('Compile') {
             steps {
-                sh 'mvn clean compile'
+                sh "mvn clean compile"
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                sh "mvn test"
             }
         }
 
         stage('Integration Test') {
             steps {
-                sh 'mvn failsafe:integration-test failsafe:verify'
+                sh "mvn failsafe:integration-test failsafe:verify"
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh "mvn package -DskipTests"
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build(
+                        "premhassall67/currency-exchange-devops:${env.BUILD_TAG}"
+                    )
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub-credentials') {
+                        dockerImage.push()
+                        dockerImage.push('latest')
+                    }
+                }
             }
         }
     }
 
     post {
-
         always {
             echo "Pipeline completed"
         }
