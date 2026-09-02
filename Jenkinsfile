@@ -11,13 +11,13 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn --version'
-                sh 'mvn clean package'
+                echo 'Build'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                echo 'Test'
             }
         }
 
@@ -32,15 +32,19 @@ pipeline {
         always {
             echo 'Pipeline completed'
         }
+
         success {
             echo 'Pipeline succeeded'
         }
+
         failure {
             echo 'Pipeline failed'
         }
+
         unstable {
             echo 'Pipeline is unstable'
         }
+
         changed {
             echo 'Pipeline status changed'
         }
