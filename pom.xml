@@ -189,7 +189,7 @@
 				<version>${failsafe.version}</version>
 				<configuration>
 					<!-- JaCoCo must be enabled on target app container -->
-					<argLine>${jacoco.itAgentConfig} --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
+					<argLine>${jacoco.itAgentConfig} --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED</argLine>
 					<includes>
 						<!--<include>**/*ApplicationTests.java</include> -->
 						<include>**/*CucumberIntegrationTestCase.java</include>
