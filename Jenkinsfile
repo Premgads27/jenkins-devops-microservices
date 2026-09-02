@@ -1,52 +1,62 @@
 // Declarative Pipeline
 
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.6.3'
-        }
+    agent any
+
+    environment {
+        dockerHome = tool 'myDocker'
+        mavenHome = tool 'myMaven'
+        PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
     }
 
     stages {
         stage('Build') {
             steps {
                 sh 'mvn --version'
-                echo 'Build'
+                sh 'docker version'
+
+                echo "Build"
+                echo "PATH - $PATH"
+                echo "BUILD_NUMBER - $env.BUILD_NUMBER"
+                echo "BUILD_ID - $env.BUILD_ID"
+                echo "JOB_NAME - $env.JOB_NAME"
+                echo "BUILD_TAG - $env.BUILD_TAG"
+                echo "BUILD_URL - $env.BUILD_URL"
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Test'
+                echo "Test"
             }
         }
 
         stage('Integration Test') {
             steps {
-                echo 'Integration Test'
+                echo "Integration Test"
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline completed'
+            echo "Pipeline completed"
         }
 
         success {
-            echo 'Pipeline succeeded'
+            echo "Pipeline succeeded"
         }
 
         failure {
-            echo 'Pipeline failed'
+            echo "Pipeline failed"
         }
 
         unstable {
-            echo 'Pipeline is unstable'
+            echo "Pipeline is unstable"
         }
 
         changed {
-            echo 'Pipeline status changed'
+            echo "Pipeline status changed"
         }
     }
 }
