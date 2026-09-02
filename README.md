@@ -98,3 +98,12 @@ jenkins-devops-microservices/
 ## 👨‍💻 About
 
 This is one of my hands-on projects while building my practical **DevOps and Cloud Engineering** skills.
+
+## Author
+
+**Prem Gaddam**
+
+DevOps / Cloud Engineering learner
+
+GitHub: [Premgads27](https://github.com/Premgads27)
+
